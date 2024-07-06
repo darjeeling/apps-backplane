@@ -191,6 +191,10 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
 LOGFIRE_TOKEN = os.environ.get("LOGFIRE_TOKEN", None)
 if LOGFIRE_TOKEN is not None:
     logfire.configure(token=LOGFIRE_TOKEN)
