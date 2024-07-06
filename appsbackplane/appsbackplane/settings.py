@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+import logfire
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,7 +147,7 @@ MEDIA_URL = "/media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-WAGTAIL_SITE_NAME = "My Example Site"
+WAGTAIL_SITE_NAME = "PyCon Apps Backplane"
 WAGTAILADMIN_BASE_URL = "http://example.com"
 WAGTAILDOCS_EXTENSIONS = [
     "csv",
@@ -159,3 +161,7 @@ WAGTAILDOCS_EXTENSIONS = [
     "xlsx",
     "zip",
 ]
+
+LOGFIRE_TOKEN = os.environ.get("LOGFIRE_TOKEN", None)
+logfire.configure(token=LOGFIRE_TOKEN)
+logfire.instrument_django()
