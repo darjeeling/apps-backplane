@@ -53,6 +53,15 @@ INSTALLED_APPS = [
     "wagtail",
     "modelcluster",
     "taggit",
+    "allauth",
+    "allauth.account",
+    # Optional -- requires install using `django-allauth[socialaccount]`.
+    "allauth.socialaccount",
+    # ... include the providers you want to enable:
+    "allauth.socialaccount.providers.apple",
+    "allauth.socialaccount.providers.github",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.twitter_oauth2",
     "pycon_manager",
 ]
 
@@ -65,6 +74,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "appsbackplane.urls"
@@ -161,6 +172,24 @@ WAGTAILDOCS_EXTENSIONS = [
     "xlsx",
     "zip",
 ]
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by email
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        "APP": {"client_id": "123", "secret": "456", "key": ""}
+    }
+}
 
 LOGFIRE_TOKEN = os.environ.get("LOGFIRE_TOKEN", None)
 if LOGFIRE_TOKEN is not None:
