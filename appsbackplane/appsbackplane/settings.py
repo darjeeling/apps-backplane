@@ -163,5 +163,6 @@ WAGTAILDOCS_EXTENSIONS = [
 ]
 
 LOGFIRE_TOKEN = os.environ.get("LOGFIRE_TOKEN", None)
-logfire.configure(token=LOGFIRE_TOKEN)
-logfire.instrument_django()
+if LOGFIRE_TOKEN is not None:
+    logfire.configure(token=LOGFIRE_TOKEN)
+    logfire.instrument_django()
